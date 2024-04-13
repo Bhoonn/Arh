@@ -75,7 +75,7 @@ fetch("http://localhost:8080/api/GetMarkers")
             commentForm += '<p id="default_notice">' + "You can only post comments if you are logged in." + '</p>'
 
             for (let i = 0; i < marker.comments.length; i++) {
-                commentForm += '<p>' + marker.comments[i] + '</p>';
+                commentForm += '<p>' + marker.comments[i].content + '</p>';
             }
             commentForm += '</div>';
 

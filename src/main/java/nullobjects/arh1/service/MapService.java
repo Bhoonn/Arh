@@ -3,6 +3,7 @@ package nullobjects.arh1.service;
 import nullobjects.arh1.model.Comment;
 import nullobjects.arh1.model.MapMarker;
 import nullobjects.arh1.model.User;
+import nullobjects.arh1.repository.CommentRepository;
 import nullobjects.arh1.repository.MapRepository;
 import nullobjects.arh1.repository.UserRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -14,10 +15,12 @@ import java.util.List;
 public class MapService {
     private final MapRepository mapRepository;
     private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
 
-    MapService(MapRepository mapRepository, UserRepository userRepository) {
+    MapService(MapRepository mapRepository, UserRepository userRepository, CommentRepository commentRepository) {
         this.mapRepository = mapRepository;
         this.userRepository = userRepository;
+        this.commentRepository = commentRepository;
     }
 
     // Get all markers
@@ -55,12 +58,15 @@ public class MapService {
     }
 
     // Add a comment to a marker
-    public void addComment(String marker_name, String username, String comment) {
+    public void addComment(String marker_name, String username, String content) {
         User user = userRepository.findById(username).orElse(null);
 
         if (user != null) {
+            Comment comment = new Comment(user, content);
+            commentRepository.save(comment);
+
             MapMarker marker = getMarker(marker_name);
-            marker.getComments().add(new Comment(user, comment));
+            marker.getComments().add(comment);
             mapRepository.save(marker);
         } else {
             // Username doesn't exist //
