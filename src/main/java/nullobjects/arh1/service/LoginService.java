@@ -4,42 +4,39 @@ import nullobjects.arh1.model.User;
 import nullobjects.arh1.model.exceptions.PasswordTooShortException;
 import nullobjects.arh1.model.exceptions.UsernameExistsException;
 import nullobjects.arh1.model.exceptions.UsernameTooShortException;
-import nullobjects.arh1.repository.LoginRepository;
+import nullobjects.arh1.repository.UserRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class LoginService {
-    private final LoginRepository loginRepository;
+    private final UserRepository userRepository;
 
-    LoginService(LoginRepository loginRepository) {
-        this.loginRepository = loginRepository;
+    LoginService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     // Register a new user
-    public boolean RegisterUser(String username, String password) throws UsernameTooShortException, PasswordTooShortException, UsernameExistsException {
+    public User RegisterUser(String username, String password) throws UsernameTooShortException, PasswordTooShortException, UsernameExistsException {
         if (username.length() < 5) {
             throw new UsernameTooShortException();
         } else if (password.length() < 5) {
             throw new PasswordTooShortException();
         }
 
-        return loginRepository.RegisterUser(new User(username, password));
+        if (userRepository.findById(username).isPresent()) {
+            throw new UsernameExistsException();
+        }
+
+        return userRepository.save(new User(username, password));
     }
 
     // Login a user
     public boolean LoginUser(String username, String password) {
-        return loginRepository.LoginUser(new User(username, password));
+        return userRepository.findByUsernameAndPassword(username, password) != null;
     }
 
     // Retrieve a user by username
     public User GetUserByUserName(String username) {
-        return loginRepository.GetUserByUserName(username);
-    }
-
-    // Get all users
-    public List<User> getUsers(){
-        return loginRepository.getUsers();
+        return userRepository.findById(username).orElse(null);
     }
 }

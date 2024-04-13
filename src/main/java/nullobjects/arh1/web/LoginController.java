@@ -64,8 +64,8 @@ public class LoginController {
         }
 
         try {
-            boolean good = loginService.RegisterUser(username, password);
-            if (good) {
+            User user = loginService.RegisterUser(username, password);
+            if (user != null) {
                 return "redirect:/login";
             } else {
                 redirectAttributes.addFlashAttribute("error", "Registration failed for an unknown reason.");
