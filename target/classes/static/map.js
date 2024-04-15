@@ -203,3 +203,29 @@ function addMarkerComment(marker_name) {
             console.error('Error during fetch:', error);
         });
 }
+
+// Dark/Light mode function
+let count = 0;
+function changeTheme() {
+    let theme_switch = document.getElementById("theme-change")
+    let logo = document.getElementById("nullLogo")
+    let map_element = document.getElementsByClassName("leaflet-layer ")
+    switch (count) {
+        case 0:
+            theme_switch.src = "/images/dark_mode.png";
+            logo.src="/images/logo/nullobjects_black.png"
+            map_element[1].style.filter= "invert(0%) hue-rotate(25deg) brightness(100%) contrast(100%)"
+            count = 1;
+            break;
+        case 1:
+            theme_switch.src = "/images/light_mode.png";
+            logo.src="/images/logo/nullobjects_white.png"
+            map_element[1].style.filter= "invert(100%) hue-rotate(200deg) brightness(100%) contrast(90%)"
+            count = 0;
+            break;
+    }
+}
+
+function changePage(){
+    window.open("https://github.com/nullobjects/Arh", "_blank");
+}

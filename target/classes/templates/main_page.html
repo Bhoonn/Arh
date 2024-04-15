@@ -21,9 +21,11 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="/map.js"></script>
 
+    <img id="nullLogo" src="/images/logo/nullobjects_white.png" onclick="changePage()">
+    <img id="theme-change" src="/images/light_mode.png" onclick="changeTheme()">
+
     <nav>
         <ul>
-            <li id="logo2"><a href="#0">NULLOBJECTS</a></li>
             <li>
                 <a href="#0" id="searchLink">SEARCH</a>
                 <ul>
@@ -50,7 +52,6 @@
                     <li><a href=delete_gal>REMOVE GALLERIES</a></li>
                 </ul>
             </li>
-            <li><a href="https://github.com/nullobjects/Arh">GITHUB</a> </li>
             <li th:if="!${session.get('user')}"><a id="login">LOGIN</a><script>
                 document.getElementById("login").addEventListener("click", function(event) {
                     event.preventDefault();
