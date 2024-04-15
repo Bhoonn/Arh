@@ -191,9 +191,9 @@ div.leaflet-popup-content {
     background-color: transparent;
 }
 
-.leaflet-popup-close-button {
-    margin-top: 2px;
-}
+/*.leaflet-popup-close-button {
+    
+}*/
 
 .leaflet-popup-close-button span {
     color: red;
