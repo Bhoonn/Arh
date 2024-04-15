@@ -3,9 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <title>Add Gallery</title>
+        <link rel="stylesheet" href="/login.css">
     </head>
 
     <body>
+    <img id="bck" src="/images/map_dark.png">
         <form th:action="@{/add}" th:method="POST">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required placeholder="Name">
@@ -32,7 +34,7 @@
             <input type="text" id="y_coord" name="y_coord" pattern="\d+(\.\d+)?" required placeholder="Y_Cord">
 
             <br><input type="submit" value="Add">
+            <a id="back" th:href="@{/}" class="btn btn-danger">Back</a>
         </form>
-        <a th:href="@{/}" class="btn btn-danger">Back</a>
     </body>
 </html>
