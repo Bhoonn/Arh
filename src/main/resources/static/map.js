@@ -30,9 +30,10 @@ mapa.setMaxBounds([
     [40.647,19.841],
 ]);
 
-var img = document.createElement('img');
+let img = document.createElement('img');
 img.width = 100;
 img.height = 100;
+img.id = "marker_image"
 
 // Define variables for storing markers and comments
 let mapMarkers = {};
@@ -64,37 +65,32 @@ fetch("http://localhost:8080/api/GetMarkers")
                 <div id="commentForm">
                     <form onsubmit="event.preventDefault(); addMarkerComment('${marker.name}')">
                         <div>
-                            <a class="comment">Add a comment:</a><br>
-                            <textarea id="markerComment" style="font-family: sans-serif; font-size: 1.2em; resize: none;" placeholder="How would you describe this place?"></textarea>
+                            <a id="add_comment">Add a comment:</a><br>
+                            <textarea id="markerComment" placeholder="How would you describe this place?"></textarea>
                         </div>
-                        <input type="submit" value="Submit">
+                        <input id = "submit_comment" type="submit" value="Submit">
                     </form>
                 </div>
             `;
-            commentForm += '<br><div class="scrollable-div">';
+            commentForm += '<div class="scrollable-div">';
             commentForm += '<p id="default_notice">' + "You can only post comments if you are logged in." + '</p>'
 
             for (let i = 0; i < marker.comments.length; i++) {
-                commentForm += '<p>' + marker.comments[i].content + '</p>';
+                commentForm += '<p>' + marker.comments[i].user.username + ": " + marker.comments[i].content + '</p>';
             }
             commentForm += '</div>';
 
             // Bind popup content to marker
             marker.bindPopup(
-                artgal.name + "<br>" +
-                artgal.description + "<br>" +
-                img.outerHTML + "<br>" +
-                "<div style='display: flex;'>" +
-                "<a class=\"twitter-share-button\" href=\"https://twitter.com/intent/tweet?text=I%20found%20this%20cool%20gallery%20called%20" + artgal.name + "%20check%20it%20out%20here:%20http://localhost:8080/\" data-size=\"large\">" + "Tweet" + "</a>" +
-                "<div style='margin-left: 8px;'>" +
-                "<div class=\"fb-share-button\" data-href=\"https://github.com/nullobjects/Arh\" data-layout=\"\" data-size=\"\">" +
-                "<a target=\"_blank\" href=\"https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgithub.com%2Fnullobjects%2FArh&amp;quote=I%20found%20this%20cool%20gallery%20called%20" + artgal.name + "%20check%20it%20out%20here%3A\" class=\"fb-xfbml-parse-ignore\">Share</a>" +
+                img.outerHTML + "<div id = \"marker_bottom\"><div id = \"marker_bottom_content\">" +
+                "<span id = \"marker_name\">" + artgal.name + "</span>" +
+                "<span id = \"marker_desc\">" + artgal.description + "</span>" +
+                "<div id = \"marker_share\">" +
+                    "<a class=\"share-button\" href=\"https://twitter.com/intent/tweet?text=I%20found%20this%20cool%20gallery%20called%20" + artgal.name + "%20check%20it%20out%20here:%20http://localhost:8080/\" data-size=\"large\">" + "Tweet" + "</a>" +
+                    "<a class = \"fb-xfbml-parse-ignore share-button\" target=\"_blank\" href=\"https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgithub.com%2Fnullobjects%2FArh&amp;quote=I%20found%20this%20cool%20gallery%20called%20" + artgal.name + "%20check%20it%20out%20here%3A\">Share</a>" +
                 "</div>" +
-                "</div>" +
-                "</div>" +
-                "<a href='javascript:void(0)' id='review' onclick='document.getElementById(\"extras\").hidden=false; document.getElementById(\"review\").hidden=true;'>Review</a>" +
-                "<div id='extras' hidden='true'>" +
-                commentForm + "<form class=\"star-rating\">\n" +
+                "<a href='javascript:void(0)' id='review' onclick='document.getElementById(\"extras\").hidden=false; document.getElementById(\"review\").hidden=true; document.getElementById(\"review\").display=none;'>Review</a>" +
+                "<div id='extras' hidden='true'>" + "<form class=\"star-rating\">\n" +
                 "  <input class=\"radio-input\" type=\"radio\" id=\"star5\" name=\"star-input\" value=\"5\" />\n" +
                 "  <label class=\"radio-label\" class for=\"star5\" title=\"5 stars\">5 stars</label>\n" +
                 "\n" +
@@ -109,7 +105,8 @@ fetch("http://localhost:8080/api/GetMarkers")
                 "\n" +
                 "  <input class=\"radio-input\" type=\"radio\" id=\"star1\" name=\"star-input\" value=\"1\" />\n" +
                 "  <label class=\"radio-label\" for=\"star1\" title=\"1 star\">1 star</label>\n" +
-                "</form>" + "</div>")
+                "</form>" +
+                commentForm + "</div></div></div>")
 
             // Add marker to map and store in variables
             mapMarkers[mapMarkerCount] = marker;
