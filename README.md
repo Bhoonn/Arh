@@ -13,12 +13,12 @@
 
 <b>Функционални и нефункционални барања</b> [Документ.pdf](https://github.com/nullobjects/Arh1/files/13328656/default.pdf)
 # Video
-https://github.com/nullobjects/Arh/assets/20116149/af766b4d-097d-478a-a6f9-31fea339e5d6
+https://github.com/nullobjects/Arh/assets/62685365/9e8509c5-f611-4620-82ba-3047f90c00ee
 
 (you can find the full resolution video in the project files)
 # Photos
-![app_showcase_gif](https://github.com/nullobjects/Arh1/assets/20116149/8e092160-5383-44b8-8f68-2652822f4e8d)
-![detailed_view](https://github.com/nullobjects/Arh1/assets/20116149/8677edf5-d9c9-49f7-a1b3-024bbec8a7d3)
+![app_showcase_short](https://github.com/nullobjects/Arh/assets/62685365/edf35477-2f4d-4e87-ab71-1fce6e58780c)
+![app_showcase_image](https://github.com/nullobjects/Arh/assets/62685365/684e87ed-38eb-4fe4-9621-9a0a91d07815)
 How to run:
 1. Press run on ArhApplication [SpringBootApplication] <img width="212" alt="image" src="https://github.com/nullobjects/Arh1/assets/20116149/528a1e3b-5144-46ce-93af-4533bbb06bbc">
 2. Go to localhost:8080/ (in your browser) <img width="210" alt="image" src="https://github.com/nullobjects/Arh1/assets/20116149/0c36f895-ed6d-4b8c-990a-388ba9560ea5">
